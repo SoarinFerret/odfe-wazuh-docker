@@ -1,0 +1,52 @@
+# This is the internal user database
+# The hash value is a bcrypt hash and can be generated with plugin/tools/hash.sh
+# 
+# You can use the following docker exec command to generate new passwords:
+#
+#   docker run --rm -it amazon/opendistro-for-elasticsearch:0.9.0 /bin/bash -c 'chmod +x ./plugins/opendistro_security/tools/hash.sh; ./plugins/opendistro_security/tools/hash.sh -p password'
+#
+
+#password is the admin
+admin:
+  readonly: true
+  # TODO: change below password
+  hash: $2a$12$VcCDgh2NDk07JGN0rjGbM.Ad41qVR/YFJcgHp0UGns5JDymv..TOG
+  roles:
+    - admin
+  attributes:
+    #no dots allowed in attribute names
+    attribute1: value1
+    attribute2: value2
+    attribute3: value3
+
+#password is: admin
+logstash:
+  # TODO: change below password
+  hash: $2a$12$VcCDgh2NDk07JGN0rjGbM.Ad41qVR/YFJcgHp0UGns5JDymv..TOG
+  roles:
+    - logstash
+
+#password is: kibanaserver
+kibanaserver:
+  readonly: true
+  # TODO: change below password
+  hash: $2a$12$4AcgAt3xwOWadA5s5blL6ev39OXDNhmOesEoo33eZtrq2N0YrU3H.
+  roles:
+    - readall
+    - wazuhadmin_role
+
+#password is: kibanaro
+testuser:
+  # TODO: change below password
+  hash: $2a$12$JJSXNfTowz7Uu5ttXfeYpeYE0arACvcwlPBStB1F.MI7f0U9Z4DGC
+  roles:
+    - kibanauser
+    - readall
+
+# wazah user - pwd is admin
+wazuhadmin:
+  # TODO: change below password
+  hash: $2a$12$VcCDgh2NDk07JGN0rjGbM.Ad41qVR/YFJcgHp0UGns5JDymv..TOG
+  roles:
+    - wazuhadmin_role
+    - logstash

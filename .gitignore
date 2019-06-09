@@ -1,0 +1,14 @@
+# exclude everything in certs
+certs/*
+# exception to the rule
+!certs/.gitkeep
+
+# Ignore any file with a potential password
+wazuh-configs/filebeat.yml
+wazuh-configs/authd.pass
+wazuh-configs/wazuh.env
+odfe-configs/es-config.yml
+odfe-configs/internal_users.yml
+odfe-configs/security-config.yml
+logstash-configs/01-wazuh-remote.conf
+kibana-configs/kibana.yml

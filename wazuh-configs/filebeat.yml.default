@@ -1,0 +1,34 @@
+# Wazuh App Copyright (C) 2019 Wazuh Inc. (License GPLv2)
+filebeat:
+ prospectors:
+  - type: log
+    paths:
+     - "/var/ossec/logs/alerts/alerts.json"
+    document_type: json
+    json.message_key: log
+    json.keys_under_root: true
+    json.overwrite_keys: true
+    tail_files: true
+
+output:
+ elasticsearch:
+   hosts: ["odfe-node1:9200"]
+   protocol: https
+   username: wazuhadmin
+   # TODO: optionally update password below
+   password: admin
+   indices:
+     - index: 'wazuh-alerts-3.x-%{+yyyy.MM.dd}'
+   ssl.verification_mode: none
+   template_name: 'wazuh'
+   pipeline: geoip
+   # TODO: optionally set to true
+   enabled: false
+
+ logstash:
+   # The Logstash hosts
+   hosts: ["logstash:5044"]
+   # TODO: optionally set to false if you set elasticsearch to true
+   enabled: true
+#   ssl:
+#     certificate_authorities: ["/etc/filebeat/logstash.crt"]

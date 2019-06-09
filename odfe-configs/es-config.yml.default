@@ -1,0 +1,36 @@
+cluster.name: "odfe-cluster"
+network.host: 0.0.0.0
+
+# minimum_master_nodes need to be explicitly set when bound on a public IP
+# set to 1 to allow single node clusters
+discovery.zen.minimum_master_nodes: 1
+
+######## Start OpenDistro for Elasticsearch Security Demo Configuration ########
+# WARNING: revise all the lines below before you go into production
+
+# TODO: update the following subject line
+opendistro_security.authcz.admin_dn:
+  - 'CN=ADMIN,O=The Best Homelab,C=US'
+
+# TODO: update the following subject line
+opendistro_security.nodes_dn:
+  - 'CN=*.example.com,O=The Best Homelab,C=US'
+
+# transport info
+opendistro_security.ssl.transport.pemcert_filepath: odfe-node1.pem
+opendistro_security.ssl.transport.pemkey_filepath: odfe-node1-key.pem
+opendistro_security.ssl.transport.pemtrustedcas_filepath: root-ca.pem
+opendistro_security.ssl.transport.enforce_hostname_verification: false
+
+# ssl for rest api
+opendistro_security.ssl.http.enabled: true
+opendistro_security.ssl.http.pemcert_filepath: odfe-node1.pem
+opendistro_security.ssl.http.pemkey_filepath: odfe-node1-key.pem
+opendistro_security.ssl.http.pemtrustedcas_filepath: root-ca.pem
+
+
+opendistro_security.allow_unsafe_democertificates: false
+opendistro_security.allow_default_init_securityindex: true
+opendistro_security.enable_snapshot_restore_privilege: true
+opendistro_security.check_snapshot_restore_write_privileges: true
+opendistro_security.restapi.roles_enabled: ["all_access", "security_rest_api_access"]
