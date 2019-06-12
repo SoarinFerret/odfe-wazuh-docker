@@ -2,6 +2,12 @@
 
 This guide is essentially my bash history nicely explained when I did this. I did this using an Ubuntu 18.04.2 server host up to date as of 6/8/19
 
+I'm warning you now:
+
+**_DO NOT RUN THIS AS ROOT_**
+
+Besides obvious reasons like it being a security concern, this process includes building some images for Wazuh and Kibana. If you run that as roots, permissions in the container will be messed up, and its a pain to go through to try and fix it all. Just save yourself the trouble and run as local user.
+
 ## 0. Prerequistes
 
 First things first, you need the following installed:
@@ -162,7 +168,7 @@ I have also included the file as `es-6-alert-template.json` in this repo for com
 Be sure to update the admin password:
 
 ```bash
-cat es6-template-alerts.json | curl -X PUT https://127.0.0.1:9200/_template/wazuh -u admin:admin -k -H 'Content-Type: application/json' -d @-
+cat es-6-alert-template.json | curl -X PUT https://127.0.0.1:9200/_template/wazuh -u admin:admin -k -H 'Content-Type: application/json' -d @-
 ```
 
 The result should say: `{"acknowledged":true}`
