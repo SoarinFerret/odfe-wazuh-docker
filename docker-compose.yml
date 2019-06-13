@@ -98,6 +98,8 @@ services:
     volumes:
       - ./kibana-configs/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
       - ./certs/root-ca.pem:/usr/share/kibana/config/root-ca.pem
+      - ./certs/kibana.pem:/usr/share/kibana/config/kibana.pem
+      - ./certs/kibana-key.pem:/usr/share/kibana/config/kibana-key.pem
 
   # Wazuh Manager
   wazuh:

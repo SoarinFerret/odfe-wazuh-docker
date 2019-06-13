@@ -153,7 +153,7 @@ docker-compose up -d
 
 Wait a couple of minutes for ODFE to come up.
 
-Check if its running (update the admin password before running):
+Check if ODFE is running (update the admin password before running):
 
 ```bash
 curl -XGET https://127.0.0.1:9200 -u admin:admin -k
@@ -203,11 +203,19 @@ curl -X PUT https://127.0.0.1:9200/_ingest/pipeline/geoip -u admin:admin -k -H '
 '
 ```
 
-## 6. Logging into Wazuh Adding Agents
+## 6. Logging into Kibana
 
-At this point, you should be able to sign into Kibana and do things. If not, I would begin troubleshooting that before continuing.
+At this point, you should be able to sign into Kibana and do things. Go to `https://<SERVERIP>:5601`. You will get a warning about using a self-signed certificate - just accept and continue. You can sign in using pretty much any of the accounts defined within the `internal_users.yml` file.
+
+If not, I would begin troubleshooting that before continuing.
 
 However, if you can sign in, congrats! Now lets take a look at Wazuh.
+
+## 7. Logging into the Kibanan Wazuh Plugin and Adding Agents
+
+**_Before continuing, switch your default tenant to Global_**
+
+Go to Tenants and click 'select' to change your tenant.
 
 ### Kibana Wazuh Plugin
 
@@ -225,3 +233,13 @@ From here, you should be able to see you have basically nothing configured.
 ### Adding Agents
 
 TODO
+
+
+## Miscellaneous Issues
+
+### Settings. 3005 - Wrong protocol being used to connect to the Wazuh API (/api/check-api)
+
+Had this happen to me on a digital ocean instance. After pulling my hair out for what seemed like 2 hours, ended up being UFW issue. To fix it:
+```bash
+ufw allow 55000/tcp
+```
